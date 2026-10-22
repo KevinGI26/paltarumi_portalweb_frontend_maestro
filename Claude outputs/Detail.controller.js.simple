@@ -1,0 +1,60 @@
+sap.ui.define([
+  "sap/ui/core/mvc/Controller",
+  "sap/ui/model/json/JSONModel"
+], function (
+  Controller,
+  JSONModel
+) {
+  "use strict";
+
+  return Controller.extend("maestro.controller.Detail", {
+    onInit: function () {
+      var oComponent = this.getOwnerComponent();
+      var oRouter = oComponent.getRouter();
+
+      // Escucha el evento de ruta
+      oRouter.getRoute("RouteDetail").attachPatternMatched(this.onRouteMatched, this);
+
+      var oModel = oComponent.getModel("localModel");
+      this.getView().setModel(oModel, "localModel");
+    },
+
+    onRouteMatched: function (oEvent) {
+      var sMaestroId = oEvent.getParameter("arguments").maestroId;
+      var oModel = this.getView().getModel("localModel");
+      var aTablaMaestra = oModel.getProperty("/aTablaMaestra");
+
+      console.log("onRouteMatched - Buscando maestro con ID:", sMaestroId);
+
+      // Busca el maestro seleccionado
+      var oMaestro = aTablaMaestra.find(function (item) {
+        return item.ID == sMaestroId;
+      });
+
+      if (oMaestro) {
+        console.log("Maestro encontrado:", oMaestro);
+        oModel.setProperty("/oMaestroSeleccionado", oMaestro);
+      } else {
+        console.error("Maestro no encontrado con ID:", sMaestroId);
+      }
+    },
+
+    onNavBack: function () {
+      var oRouter = this.getOwnerComponent().getRouter();
+      oRouter.navTo("RouteHome");
+    },
+
+    onTabSelect: function (oEvent) {
+      var sKey = oEvent.getParameter("key");
+      console.log("Tab seleccionado:", sKey);
+    },
+
+    onAgregarParametro: function () {
+      sap.m.MessageBox.information("Agregar nuevo parámetro");
+    },
+
+    onEliminarParametro: function () {
+      sap.m.MessageBox.confirm("¿Está seguro que desea eliminar este parámetro?");
+    }
+  });
+});

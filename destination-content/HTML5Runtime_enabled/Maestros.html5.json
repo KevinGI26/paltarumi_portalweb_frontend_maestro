@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Maestros",
+  "Description": "Maestros Application",
+  "Type": "HTTP",
+  "URL": "${html5-apps-repo-host}/applications/paltarumi.maestro/maestros/index.html",
+  "Authentication": "NoAuthentication",
+  "ProxyType": "Internet"
+}

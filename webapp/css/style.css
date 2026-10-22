@@ -1,0 +1,43 @@
+/* Custom Maestro Application Styles */
+
+.sapUiSizeCompact .maestroPage {
+  padding: 1rem;
+}
+
+.maestroHeader {
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.maestroSearch {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.maestroToolbar {
+  background-color: #f5f5f5;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.maestroTable {
+  width: 100%;
+}
+
+.maestroParameter {
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.maestroButton {
+  margin-right: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .maestroHeader {
+    font-size: 1.2rem;
+  }
+}

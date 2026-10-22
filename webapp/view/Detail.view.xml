@@ -1,0 +1,92 @@
+<mvc:View controllerName="paltarumi.portalweb.maestro.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:u="sap.ui.table"
+    xmlns:core="sap.ui.core">
+    <Page
+        title="Detalle de Maestro"
+        showHeader="true"
+        enableScrolling="true"
+        navButtonPress=".onNavBack"
+        showNavButton="true">
+        <headerContent>
+            <Button icon="sap-icon://add" text="Agregar" press=".onAgregarParametro"/>
+            <Button icon="sap-icon://delete" text="Eliminar" press=".onEliminarParametro"/>
+        </headerContent>
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <VBox class="sapUiSmallMargin">
+                    <Label text="{localModel>/oMaestroSeleccionado/codigo}" design="Bold"/>
+                    <Text text="{localModel>/oMaestroSeleccionado/descripcion}"/>
+                </VBox>
+                <IconTabBar id="idIconTabBar" class="sapUiResponsiveMargin" applyContentPadding="false" select=".onTabSelect">
+                    <items>
+                        <IconTabFilter icon="sap-icon://information" text="Información" key="info">
+                            <content>
+                                <VBox class="sapUiSmallMargin">
+                                    <Label text="Código:" design="Bold"/>
+                                    <Text text="{localModel>/oMaestroSeleccionado/codigo}"/>
+                                    <Label text="Descripción:" design="Bold"/>
+                                    <Text text="{localModel>/oMaestroSeleccionado/descripcion}"/>
+                                    <Label text="ID:" design="Bold"/>
+                                    <Text text="{localModel>/oMaestroSeleccionado/ID}"/>
+                                </VBox>
+                            </content>
+                        </IconTabFilter>
+                        <IconTabFilter icon="sap-icon://list" text="Parámetros" key="params">
+                            <content>
+                                <u:Table id="paramTable" rows="{localModel>/aParametros}" enableColumnReordering="false" selectionMode="MultiToggle" visibleRowCount="10">
+                                    <u:columns>
+                                        <u:Column width="8%">
+                                            <Label text="Código"/>
+                                            <u:template>
+                                                <Text text="{localModel>CODIGO_MAESTRO_DETALLE}"/>
+                                            </u:template>
+                                        </u:Column>
+                                        <u:Column width="12%">
+                                            <Label text="Padre"/>
+                                            <u:template>
+                                                <Text text="{localModel>PADRE}"/>
+                                            </u:template>
+                                        </u:Column>
+                                        <u:Column width="25%">
+                                            <Label text="Descripción"/>
+                                            <u:template>
+                                                <Text text="{localModel>DESCRIPCION}"/>
+                                            </u:template>
+                                        </u:Column>
+                                        <u:Column width="15%">
+                                            <Label text="Campo"/>
+                                            <u:template>
+                                                <Text text="{localModel>CAMPO}"/>
+                                            </u:template>
+                                        </u:Column>
+                                        <u:Column width="15%">
+                                            <Label text="Valor"/>
+                                            <u:template>
+                                                <Text text="{localModel>VALOR}"/>
+                                            </u:template>
+                                        </u:Column>
+                                        <u:Column width="10%">
+                                            <Label text="Estado"/>
+                                            <u:template>
+                                                <Text text="Activo"/>
+                                            </u:template>
+                                        </u:Column>
+                                        <u:Column width="5%">
+                                            <Label text=""/>
+                                            <u:template>
+                                                <Link text="»" press=".onEditParametro" class="sapUiSmallFont"/>
+                                            </u:template>
+                                        </u:Column>
+                                    </u:columns>
+                                </u:Table>
+                            </content>
+                        </IconTabFilter>
+                    </items>
+                </IconTabBar>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

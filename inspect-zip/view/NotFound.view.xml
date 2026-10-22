@@ -1,0 +1,6 @@
+<mvc:View controllerName="maestro.controller.NotFound" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true">
+    <Page id="notFoundPage" title="No Encontrado">
+        <Text text="Página no encontrada"/>
+    </Page>
+</mvc:View>

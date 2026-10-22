@@ -1,0 +1,95 @@
+﻿---
+_schema-version: "3.2"
+ID: maestro
+version: 1.0.0
+description: "SAPUI5 Maestro Application for SAP Build Work Zone"
+
+parameters:
+  enable-parallel-deployments: true
+
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install
+
+modules:
+  - name: maestro-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: maestro-destination-service
+        parameters:
+          content-target: true
+      - name: maestro-repo-host
+        parameters:
+          service-key:
+            name: maestro-repo-host-key
+      - name: maestro-uaa
+        parameters:
+          service-key:
+            name: maestro-uaa-key
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Name: maestro_html_repo_host
+              ServiceInstanceName: maestro-html5-srv
+              ServiceKeyName: maestro-repo-host-key
+              sap.cloud.service: paltarumi.portalweb.maestro
+            - Authentication: OAuth2UserTokenExchange
+              Name: maestro_uaa
+              ServiceInstanceName: maestro-xsuaa-srv
+              ServiceKeyName: maestro-uaa-key
+              sap.cloud.service: paltarumi.portalweb.maestro
+          existing_destinations_policy: ignore
+    build-parameters:
+      no-source: true
+
+  - name: maestro-ui-deployer
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: maestro-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - wz-maestro.zip
+          name: maestro-app
+          target-path: resources/
+
+  - name: maestro-app
+    type: html5
+    path: .
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm run build:cf
+      supported-platforms: []
+
+resources:
+  - name: maestro-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+        version: 1.0.0
+  - name: maestro-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+      service-name: maestro-html5-srv
+
+  - name: maestro-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      service-name: maestro-xsuaa-srv
+      path: ./xs-security.json

@@ -1,0 +1,45 @@
+<mvc:View controllerName="maestro.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m">
+    <App id="maestroApp">
+        <pages>
+            <SplitContainer id="idSplitContainer">
+                <masterPages>
+                    <Page title="Maestros" showHeader="true" enableScrolling="true">
+                        <headerContent>
+                            <Button text="Agregar" icon="sap-icon://add" press=".onAgregarTabla"/>
+                        </headerContent>
+                        <content>
+                            <SearchField
+                                placeholder="Buscar maestro..."
+                                width="100%"
+                                search=".onLiveSearch"
+                                liveChange=".onLiveSearch"/>
+                            <List
+                                id="list"
+                                items="{localModel>/aTablaMaestra}"
+                                noDataText="Sin maestros"
+                                growing="true"
+                                growingThreshold="20"
+                                updateFinished=".updateStartedTableMasterPagination">
+                                <StandardListItem
+                                    title="{localModel>codigo}"
+                                    description="{localModel>descripcion}"
+                                    type="Navigation"
+                                    press=".onMaestroSelect"/>
+                            </List>
+                        </content>
+                    </Page>
+                </masterPages>
+                <detailPages>
+                    <Page title="Detalle" id="detailPage" showHeader="true" enableScrolling="true">
+                        <content>
+                            <Text text="Seleccione un maestro de la lista." textAlign="Center" class="sapUiLargeMargin"/>
+                        </content>
+                    </Page>
+                </detailPages>
+            </SplitContainer>
+        </pages>
+    </App>
+</mvc:View>

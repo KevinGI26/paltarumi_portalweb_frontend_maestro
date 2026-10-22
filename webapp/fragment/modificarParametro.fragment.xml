@@ -1,0 +1,35 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:ui="sap.ui.table"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form">
+	<Dialog id="ModificarParametro" horizontalScrolling="false" contentWidth="500px" showHeader="false">
+		<content>
+			<f:SimpleForm id="formModParametros" editable="true" layout="ResponsiveGridLayout" title="Modificar parámetro para: {localModel>/oMaestroSeleccionado/descripcion}" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+				<f:content>
+					<Label text="Código" />
+					<Input value="{localModel>/oParametroModificar/CODIGO_MAESTRO_DETALLE}" maxLength="300" required="true" enabled="false" />
+					<Label text="Descripción" />
+					<Input value="{localModel>/oParametroModificar/DESCRIPCION}" maxLength="500" />
+					<Label text="Campo" />
+					<Input value="{localModel>/oParametroModificar/CAMPO}" maxLength="300" />
+					<Label text="Padre" />
+					<Input value="{localModel>/oParametroModificar/PADRE}" />
+					<Label text="Valor" />
+					<Input value="{localModel>/oParametroModificar/VALOR}" maxLength="300" />
+					<Label text="Estado" />
+					<ComboBox placeholder="Seleccione" width="15em">
+						<core:Item key="Activo" text="Activo"/>
+						<core:Item key="Inactivo" text="Inactivo"/>
+					</ComboBox>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<endButton>
+			<Button type="Transparent" text="Cancelar" press="onCancelEditParametro" />
+		</endButton>
+		<beginButton>
+			<Button type="Emphasized" text="Guardar" press="onSaveEditParametro" />
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

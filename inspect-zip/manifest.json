@@ -1,0 +1,101 @@
+{
+  "_version": "1.54.0",
+  "sap.app": {
+    "id": "paltarumi.maestro",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "title": "Maestros",
+    "description": "Gestión de Maestros",
+    "crossNavigation": {
+      "inbounds": {
+        "intent1": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "maestro",
+          "action": "display",
+          "title": "Maestros",
+          "icon": "sap-icon://list"
+        }
+      }
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "paltarumi.maestro"
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "maestro.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewPath": "maestro.view",
+        "viewType": "XML",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "async": true,
+        "handleValidation": false
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "RouteHome",
+          "target": "Home"
+        },
+        {
+          "pattern": "detail/{maestroId}",
+          "name": "RouteDetail",
+          "target": "Detail"
+        },
+        {
+          "pattern": ":all*:",
+          "name": "RouteNotFound",
+          "target": "NotFound"
+        }
+      ],
+      "targets": {
+        "Home": {
+          "viewName": "Home",
+          "viewLevel": 0,
+          "transition": "slide"
+        },
+        "Detail": {
+          "viewName": "Detail",
+          "viewLevel": 1,
+          "transition": "slide"
+        },
+        "NotFound": {
+          "viewName": "NotFound",
+          "transition": "show"
+        }
+      }
+    },
+    "dependencies": {
+      "minUI5Version": "1.152.0",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.ui.layout": {},
+        "sap.f": {},
+        "sap.uxap": {}
+      }
+    }
+  }
+}
